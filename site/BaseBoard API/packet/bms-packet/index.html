@@ -1,0 +1,1655 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fw.api.bearrobotics.ai/BaseBoard%20API/packet/bms-packet/">
+      
+      
+        <link rel="prev" href="../chargermanager-packet/">
+      
+      
+        <link rel="next" href="../log-packet/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>BMS Packet - Bear Firmware BaseBoard API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bms-packet-single-direction-firmware-ros-driver" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bear Firmware BaseBoard API" class="md-header__button md-logo" aria-label="Bear Firmware BaseBoard API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bear Firmware BaseBoard API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BMS Packet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/communication/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bear Firmware BaseBoard API" class="md-nav__button md-logo" aria-label="Bear Firmware BaseBoard API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    Bear Firmware BaseBoard API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Firmware API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1_2" id="__nav_1_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Packet
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Packet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packet-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packet Structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../motor-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motor Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maincoms-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maincoms Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CAN Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baseledcommand-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BaseLedCommand Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../imu-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IMU Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chargermanager-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ChargerManager Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    BMS Packet
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMS Packet
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#field-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Layout
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-valid-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Valid Bits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#battery-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Battery Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-flag-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Flag Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operation Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pack-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pack Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-balancing-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Balancing Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fault-condition-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fault Condition Flag
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Log Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#field-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Layout
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Field Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-valid-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Valid Bits
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#battery-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Battery Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-flag-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Flag Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operation-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operation Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pack-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pack Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-balancing-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cell Balancing Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fault-condition-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fault Condition Flag
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bms-packet-single-direction-firmware-ros-driver">BMS Packet (Single-Direction, Firmware → ROS driver)<a class="headerlink" href="#bms-packet-single-direction-firmware-ros-driver" title="Permanent link">&para;</a></h1>
+<p>This packet is generated by the firmware to report data acquired from the robot's BMS(Battery Management System) module. It is periodically transmitted to the ROS driver at fixed 500 ms intervals through UDP port number <strong>49167</strong>.</p>
+<hr />
+<h2 id="field-layout">Field Layout<a class="headerlink" href="#field-layout" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 11</td>
+<td>Header</td>
+<td>Timestamp Header</td>
+<td>12</td>
+<td>Please refer to <a href="../packet-structure/#timestamp-header">Timestamp Header</a>.</td>
+</tr>
+<tr>
+<td>12 - 15</td>
+<td>Data Valid Bits</td>
+<td>32-bit unsigned integer</td>
+<td>4</td>
+<td>Please refer to <a href="#data-valid-bits">Data Valid Bit</a> definitions.</td>
+</tr>
+<tr>
+<td>16 - 17</td>
+<td>Version</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Firmware version of the BMS module.</td>
+</tr>
+<tr>
+<td>18 - 19</td>
+<td>Number Of Cells</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Number of cell in series.</td>
+</tr>
+<tr>
+<td>20 - 21</td>
+<td>Temperature</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Temperature of the battery. Unit: 0.1 K.</td>
+</tr>
+<tr>
+<td>22 - 23</td>
+<td>Total Voltage</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Total voltage of each cell. Unit: mV.</td>
+</tr>
+<tr>
+<td>24 - 25</td>
+<td>Current</td>
+<td>16-bit signed integer</td>
+<td>2</td>
+<td>Current value. Unit: mA.</td>
+</tr>
+<tr>
+<td>26 - 27</td>
+<td>Relative State Of Charge</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Remaining capacity percentage of the battery. Unit: %</td>
+</tr>
+<tr>
+<td>28 - 29</td>
+<td>Remaining Capacity</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Remaining capacity of the battery. Unit: mAh.</td>
+</tr>
+<tr>
+<td>30 - 31</td>
+<td>Full Charge Capacity</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Full charge capacity of the battery. Unit: mAh.</td>
+</tr>
+<tr>
+<td>32 - 33</td>
+<td>Charging Current</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Required charge current.</td>
+</tr>
+<tr>
+<td>34 - 35</td>
+<td>Charging Voltage</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Required charge voltage</td>
+</tr>
+<tr>
+<td>36 - 37</td>
+<td>Battery Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Flag state of the Battery. Please refer to <a href="#battery-status">Battery Status</a>.</td>
+</tr>
+<tr>
+<td>38 - 39</td>
+<td>Control Flag Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Flag status of control. Please refer to <a href="#control-flag-status">Control Flag Status</a>. (This field has no effect on robot operation. It is used solely to indicate the extended configuration status of the BMS module.)</td>
+</tr>
+<tr>
+<td>40 - 41</td>
+<td>Relative State Of Health</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Indicates the remaining lifetime of the battery. Unit: %.</td>
+</tr>
+<tr>
+<td>42 - 55</td>
+<td>Voltage of Cells[7]</td>
+<td>16-bit unsigned integer array</td>
+<td>2 x 7</td>
+<td>Voltage of cell 1 - 7. Currently, a total of 7 cells are used.</td>
+</tr>
+<tr>
+<td>56 - 57</td>
+<td>Write Lock Flag Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Indicates the write-lock status. Set to 1 when the write lock is released. (This field has no effect on robot operation.)</td>
+</tr>
+<tr>
+<td>58 - 59</td>
+<td>Operation Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Indicates the current mode. Please refer to <a href="#operation-status">Operation Status</a>.</td>
+</tr>
+<tr>
+<td>60 - 61</td>
+<td>Total Cell Voltage</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Total cell voltage</td>
+</tr>
+<tr>
+<td>62 - 63</td>
+<td>Pack Voltage</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Pack voltage.</td>
+</tr>
+<tr>
+<td>64 - 65</td>
+<td>Pack Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Please refer to <a href="#pack-status">Pack Status</a>.</td>
+</tr>
+<tr>
+<td>66 - 67</td>
+<td>Cell Balancing Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Indicates the enable status of cell balancing for each cell. Please refer to <a href="#cell-balancing-status">Cell Balancing Status</a>.</td>
+</tr>
+<tr>
+<td>68 - 69</td>
+<td>Fault Status</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Upper byte: Indicates the number of fault events that have occurred. Lower byte: Each bit represents a fault condition flag. Please refer to <a href="#fault-condition-flag">Fault Condition Flag</a>.</td>
+</tr>
+<tr>
+<td>70 - 71</td>
+<td>Checksum Of Firmware</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Checksum of the firmware code.</td>
+</tr>
+<tr>
+<td>72 - 73</td>
+<td>Checksum Of Constants</td>
+<td>16-bit unsigned integer</td>
+<td>2</td>
+<td>Checksum of fixed constant value in BMS's flash.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="data-valid-bits">Data Valid Bits<a class="headerlink" href="#data-valid-bits" title="Permanent link">&para;</a></h4>
+<p>The <code>Data Valid Bits</code> field specifies the validity of each data item in the BMS packet. A bit set to <code>1</code> indicates that the corresponding data was successfully read, while a bit set to <code>0</code> indicates a read failure. When a data item cannot be read successfully, the firmware shall set the corresponding field value to <code>0</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Version</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Number Of Cells</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Temperature</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Total Voltage</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Current</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Relative State Of Charge</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Remaining Capacity</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Full Charge Capacity</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Charging Current</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Charging Voltage</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Battery Status</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Control Flag Status</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Relative State Of Health</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Cell1 Voltage</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Cell2 Voltage</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Cell3 Voltage</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Cell4 Voltage</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Cell5 Voltage</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Cell6 Voltage</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Cell7 Voltage</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Write Lock Flag Status</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Operation Status</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Total Cell Voltage</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Pack Voltage</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Pack Status</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Cell Balancing Status</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Fault Status</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Checksum Of Firmware</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Checksum Of Constants</td>
+</tr>
+<tr>
+<td>29 - 31</td>
+<td>Reserved. Set to 0.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="battery-status">Battery Status<a class="headerlink" href="#battery-status" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>FULLY_DISCHARGED</td>
+<td>Set to 1 when the battery is fully discharged.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>FULLY_CHARGED</td>
+<td>Set to 1 when the battery is fully charged.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>DISCHARGING</td>
+<td>Set to 1 when the battery is in discharging state.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SHORT_CURRENT_ALARM</td>
+<td>Set to 1 when a short-circuit condition is detected.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>OVER_CHARGE_CURRENT_ALARM</td>
+<td>Set to 1 when an over-charge current condition is detected.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>OVER_DISCHARGE_CURRENT_ALARM</td>
+<td>Set to 1 when an over-discharge current condition is detected.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>OVER_TEMP_ALARM</td>
+<td>Set to 1 when an over-temperature condition is detected.</td>
+</tr>
+<tr>
+<td>7 - 15</td>
+<td>Reserved</td>
+<td>Set to 0.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="control-flag-status">Control Flag Status<a class="headerlink" href="#control-flag-status" title="Permanent link">&para;</a></h4>
+<p>This data is intended only for debugging by firmware engineers.</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>2ND_THERM</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>CELL_BALANC</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>INIT_CALIB_1P</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>INITCAP</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>F_SYS_CON_EN</td>
+<td></td>
+</tr>
+<tr>
+<td>5 - 15</td>
+<td>Reserved</td>
+<td>Set to 0.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="operation-status">Operation Status<a class="headerlink" href="#operation-status" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Mode Number</th>
+<th>Mode Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x0000</td>
+<td>Init</td>
+</tr>
+<tr>
+<td>0x0001</td>
+<td>WakeUp</td>
+</tr>
+<tr>
+<td>0x0002</td>
+<td>Discharging</td>
+</tr>
+<tr>
+<td>0x0003</td>
+<td>Charging</td>
+</tr>
+<tr>
+<td>0x0004</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>0x0005</td>
+<td>Charge Terminate</td>
+</tr>
+<tr>
+<td>0x0006</td>
+<td>Charge Wait</td>
+</tr>
+<tr>
+<td>0x0007 - 0x000F</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>0x0010</td>
+<td>Charge Over Heat</td>
+</tr>
+<tr>
+<td>0x0011</td>
+<td>Discharge Over Heat</td>
+</tr>
+<tr>
+<td>0x0012</td>
+<td>Over Charge Current</td>
+</tr>
+<tr>
+<td>0x0013</td>
+<td>Over Discharge Current</td>
+</tr>
+<tr>
+<td>0x0014</td>
+<td>Short Current</td>
+</tr>
+<tr>
+<td>0x0015</td>
+<td>Over Voltage</td>
+</tr>
+<tr>
+<td>0x0016</td>
+<td>2nd Thermal Over Heat</td>
+</tr>
+<tr>
+<td>0x0017 - 0x001D</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>0x001E</td>
+<td>Power Down</td>
+</tr>
+<tr>
+<td>0x001F</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>0x0020</td>
+<td>Initial calibration</td>
+</tr>
+<tr>
+<td>0x0021 - 0x0098</td>
+<td>Reserved</td>
+</tr>
+<tr>
+<td>0x0099</td>
+<td>Fixed Constant Data Error</td>
+</tr>
+<tr>
+<td>0x0100 -</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pack-status">Pack Status<a class="headerlink" href="#pack-status" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>DFET</td>
+<td>Condition of D-FET. (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>CFET</td>
+<td>Condition of C-FET. (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SYS</td>
+<td>Current SYS-connect status(0=Disconnect, 1=Connect)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CP</td>
+<td>Indicates whether the Capacity Correction condition is activate. While charging, if SOC(Relative State Of Charge) value exceeds the configured threshold, then this bit is cleared.</td>
+</tr>
+<tr>
+<td>4 - 15</td>
+<td>Reserved</td>
+<td>Set to 0.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="cell-balancing-status">Cell Balancing Status<a class="headerlink" href="#cell-balancing-status" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Cell balancing in CELL 1 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Cell balancing in CELL 2 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Cell balancing in CELL 3 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Cell balancing in CELL 4 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Cell balancing in CELL 5 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Cell balancing in CELL 6 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Cell balancing in CELL 7 (0=OFF, 1=ON)</td>
+</tr>
+<tr>
+<td>7 - 15</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="fault-condition-flag">Fault Condition Flag<a class="headerlink" href="#fault-condition-flag" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Over Voltage</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Charge wait</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Charge Over Current</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Discharge Over Current</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Short Current</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Charge Over/Under Temperature.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Discharge Over/Under Temperature.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Reserved</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<p>The configuration of the BMS module is performed by the firmware after the robot is powered on. Therefore, modifying BMS module settings through the ROS driver is <strong>not supported</strong>.</p>
+<p>The primary purpose of the BMS packet is to monitor the current battery state of charge and charging status. The following data items transmitted in the BMS packet shall be used for this purpose:</p>
+<ul>
+<li>Temperature</li>
+<li>Total Voltage</li>
+<li>Current</li>
+<li>Relative State of Charge (SOC)</li>
+<li>Remaining Capacity</li>
+<li>Relative State of Health (SOH)</li>
+<li>Operation Status</li>
+</ul>
+<p>In particular, when a <strong>wired charger</strong> is used, the charging status cannot be determined from the <code>ChargerManager</code> packet. In such cases, the ROS driver shall determine the charging status using the data provided in the BMS packet. (Please refer to <a href="../chargermanager-packet/#usage">Usage of the ChargerManager packet</a>)</p>
+<p>Other than the fields explicitly listed for monitoring battery state and charging status, the majority of additional values contained in the BMS packet are provided solely for firmware engineer debugging. These fields are not intended for use in system-level functionality or external integration, and their contents may change without notice in future firmware revisions.</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2025 Bear Robotics, Inc. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.tooltips", "navigation.top", "navigation.tabs", "toc.follow"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
