@@ -1,0 +1,1664 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fw.api.bearrobotics.ai/BaseBoard%20API/packet/maincoms-packet/">
+      
+      
+        <link rel="prev" href="../motor-packet/">
+      
+      
+        <link rel="next" href="../can-packet/">
+      
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>Maincoms Packet - Bear Firmware BaseBoard API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#maincoms-packet-bi-direction-firmware-ros-driver" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bear Firmware BaseBoard API" class="md-header__button md-logo" aria-label="Bear Firmware BaseBoard API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bear Firmware BaseBoard API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Maincoms Packet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/communication/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bear Firmware BaseBoard API" class="md-nav__button md-logo" aria-label="Bear Firmware BaseBoard API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    Bear Firmware BaseBoard API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Firmware API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            Firmware API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1_2" id="__nav_1_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Packet
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            Packet
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packet-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Packet Structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../motor-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Motor Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Maincoms Packet
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maincoms Packet
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-packet-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Packet Specifications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Packet Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-ros-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sent From The ROS driver
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The ROS driver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maincoms-command-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      MainComs Command Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sent From The Firmware
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The Firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maincoms-packet-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      MainComs Packet Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload-layout-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payload Layout &amp; Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CAN Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baseledcommand-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BaseLedCommand Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../imu-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IMU Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chargermanager-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ChargerManager Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bms-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BMS Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Log Packet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-packet-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Detailed Packet Specifications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Packet Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-ros-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sent From The ROS driver
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The ROS driver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maincoms-command-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      MainComs Command Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sent From The Firmware
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The Firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maincoms-packet-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      MainComs Packet Parameter
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Field Layout
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#payload-layout-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Payload Layout &amp; Usage
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="maincoms-packet-bi-direction-firmware-ros-driver">MainComs Packet (Bi-Direction, Firmware ↔︎ ROS driver)<a class="headerlink" href="#maincoms-packet-bi-direction-firmware-ros-driver" title="Permanent link">&para;</a></h1>
+<p>This packet includes general commands for firmware control sent from the ROS driver,<br />
+the corresponding responses from the firmware, and periodic report packets transmitted from the firmware.</p>
+<hr />
+<h2 id="detailed-packet-specifications">Detailed Packet Specifications<a class="headerlink" href="#detailed-packet-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="sent-from-the-ros-driver">Sent From The ROS driver<a class="headerlink" href="#sent-from-the-ros-driver" title="Permanent link">&para;</a></h3>
+<p>This packet must be sent from the ROS driver to the firmware through UDP port number <strong>49158</strong>.</p>
+<h4 id="maincoms-command-parameter">MainComs Command Parameter<a class="headerlink" href="#maincoms-command-parameter" title="Permanent link">&para;</a></h4>
+<p>The <code>COMS_COMMAND</code> field is represented as a 32-bit integer value in the range 0x00000000 to 0x7FFFFFFF.<br />
+All arguments associated with this field are represented as 32-bit unsigned integer values.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Value (Hex)</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00000000</td>
+<td>COMS_COMMAND_NONE</td>
+<td>Do not use this param for packet.</td>
+</tr>
+<tr>
+<td>0x00000001</td>
+<td>COMS_COMMAND_SHUTDOWN</td>
+<td>Shutdown the robot.</td>
+</tr>
+<tr>
+<td>0x00000002</td>
+<td>COMS_COMMAND_SET_ESTOP</td>
+<td>Trigger or release the emergency stop for the motor.</td>
+</tr>
+<tr>
+<td>0x00000003</td>
+<td>COMS_COMMAND_ENABLE_POWER_SWITCH</td>
+<td>Turn on the power switches.  See the Usage section for more information.</td>
+</tr>
+<tr>
+<td>0x00000004</td>
+<td>COMS_COMMAND_DISABLE_POWER_SWITCH</td>
+<td>Turn off the power switches.  See the Usage section for more information.</td>
+</tr>
+<tr>
+<td>0x00000005  -  0x00000007</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x00000008</td>
+<td>COMS_COMMAND_PING</td>
+<td>This parameter is used to check the connection with the firmware.</td>
+</tr>
+<tr>
+<td>0x00000009</td>
+<td>COMS_COMMAND_GET_VERSION</td>
+<td>Query the firmware version and hardware revision of the main controller.</td>
+</tr>
+<tr>
+<td>0x0000000A</td>
+<td>COMS_COMMAND_GET_LED_DRIVER_VERSION</td>
+<td>Query the firmware version and hardware revision of the BaseLEDDriver</td>
+</tr>
+<tr>
+<td>0x0000000B</td>
+<td>COMS_COMMAND_GET_MOTOR_VERSION</td>
+<td>Query the firmware version and hardware revision of the Motor driver</td>
+</tr>
+<tr>
+<td>0x0000000C</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x0000000D</td>
+<td>COMS_COMMAND_ENABLE_CAN_COMM</td>
+<td>Enable or disable the CAN communication for the Top-Controller</td>
+</tr>
+<tr>
+<td>0x0000000E</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x0000000F</td>
+<td>COMS_COMMAND_REMOTE_RESET</td>
+<td>Reset the robot.</td>
+</tr>
+<tr>
+<td>0x00000010  -  0x00000012</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x00000013</td>
+<td>COMS_COMMAND_DISABLE_CONTACT_CHARGING</td>
+<td>Enable or disable the contact charging with timeout value.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="field-layout">Field Layout<a class="headerlink" href="#field-layout" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Header</td>
+<td>Non-Timestamp Header</td>
+<td>4</td>
+<td>Refer to <a href="../packet-structure/#non-timestamp-header">Non-Timestamp Header</a></td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Parameter</td>
+<td>COMS_COMMAND</td>
+<td>4</td>
+<td>Refer to <a href="#maincoms-command-parameter">COMS_COMMAND</a></td>
+</tr>
+<tr>
+<td>8 - 11</td>
+<td>Argument</td>
+<td>uint32</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>COMS_COMMAND</code><br> Please refer to <a href="#usage">Usage</a> for more detail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p>COMS_COMMAND_SHUTDOWN:</p>
+<ul>
+<li>Purpose<br />
+This command is used to shut down the robot.</li>
+<li>Argument Usage<br />
+Not used, set to 0.</li>
+<li>
+<p>Robot shutdown behavior<br />
+No response packet is generated by the firmware for this command.<br />
+To shut down the robot, the ROS driver must stop transmitting <code>COMS_COMMAND_PING</code> packets after issuing this command.<br />
+<strong>Step 1</strong>: If no <code>COMS_COMMAND_PING</code> packets are received by the firmware for more than <strong>10 seconds</strong>, the firmware enters the shutdown monitoring state.<br />
+<strong>Step 2</strong>: If, in addition, no ICMP ping is observed on the physical Ethernet line between the firmware and the PC for more than <strong>20 seconds</strong>, the firmware determines that the PC system has been completely shut down.<br />
+<strong>Step 3</strong>: At this point, the firmware turns off the power switch to shut down the robot.  </p>
+<p>This mechanism ensures that the PC and all subsystems in the robot are safely shut down before the main power is disconnected.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_SET_ESTOP</p>
+<ul>
+<li>Purpose<br />
+This command is used to enable or disable the emergency stop.</li>
+<li>Argument Usage<br />
+0: Disable the emergency stop<br />
+1: Enable the emergency stop  </li>
+<li>Emergency stop behavior  <br />
+No response packet is generated by the firmware for this command.
+When the firmware receives this command with an argument value of <code>1</code>, it sends an emergency signal to the motor driver, which locks the wheels of the robot.<br />
+The robot cannot be moved until the emergency stop is disabled by sending this command with an argument value of <code>0</code>.</li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_ENABLE_POWER_SWITCH / DISABLE_POWER_SWITCH</p>
+<ul>
+<li>Purpose
+These commands are used to enable or disable specific power switches in the robot system.  </li>
+<li>Argument Usage<br />
+Both commands use the same argument value to specify the target power switch:<br />
+0: Power switch for 12V<br />
+1: Power switch for the PC<br />
+2: Power switch for 5V<br />
+3: Power switch for the Lidar module<br />
+4: Power switch for the Motor driver<br />
+5: Power switch for the 5V USB<br />
+6: Power switch for the External 24V  </li>
+<li>Enable / Disable the power switch behavior<br />
+Only one power switch ca be controlled per packet.<br />
+When executed, the firmware applies the requested power switch operation.<br />
+The firmware does not generate a direct response packet for these commands. Instead, the current state of the power switches is reported periodically in the <code>GenericStatus</code> packet.  </li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_PING</p>
+<ul>
+<li>Purpose<br />
+This commands is used to verify that the ROS driver and the firmware are still connected.</li>
+<li>Argument Usage<br />
+Its value is incremented for each packet transmitted.(Range: 0 - 0xFFFFFFFF)  </li>
+<li>Ping by the command behavior<br />
+When the ROS driver transmits this command, the firmware responds by echoing the same argument value.<br />
+The response from the firmware is sent in a MainComsPingEcho packet.</li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_GET_VERSION / GET_LED_DRIVER_VERSION / GET_MOTOR_VERSION</p>
+<ul>
+<li>Purpose<br />
+These commands are used to query the firmware version and hardware revision of each controller:<br />
+COMS_COMMAND_GET_VERSION - Main Controller<br />
+COMS_COMMAND_GET_LED_DRIVER_VERSION - Base Led Driver<br />
+COMS_COMMAND_GET_MOTOR_VERSION - Motor Driver  </li>
+<li>Argument Usage<br />
+Not used, set to 0.  </li>
+<li>Version query behavior by COMS_COMMAND<br />
+When the firmware receives a version query command, it responds with the corresponding MainComsVersionResponse packet.  </li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_ENABLE_CAN_COMM</p>
+<ul>
+<li>Purpose<br />
+The main controller firmware can communicate with sub-controller called <em>TopController</em> through a CAN interface.<br />
+By enabling this communication, the PC can control or monitor the devices on the TopController using CANpackets.<br />
+To establish this communication path, the ROS driver must send this command.  </li>
+<li>Argument Usage<br />
+0: disable the CAN communication function<br />
+1: enable the CAN communication function  </li>
+<li>Enable or disable the CAN communication behavior<br />
+No response packet is generated by the firmware for this command.<br />
+After CAN communication is enabled, the firmware begins transmitting CANpackets to the ROS driver.  </li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_REMOTE_RESET</p>
+<ul>
+<li>Purpose<br />
+This command is used to reboot the robot</li>
+<li>Argument Usage<br />
+0: Immediate reboot<br />
+1: Safety reboot  </li>
+<li>Reboot behavior<br />
+The firmware reboots the robot immediately without waiting for the PC to shut down for immediate reboot.<br />
+The firmware waits until the PC has been completely shut down, and then performs the reboot following the same procedure as the <em>Robot Shutdown Behavior</em> for safety reboot.  </li>
+</ul>
+</li>
+<li>
+<p>COMS_COMMAND_DISABLE_CONTACT_CHARGING</p>
+<ul>
+<li>Purpose<br />
+This command is used to disable(pause) or enable the contact charging.  </li>
+<li>Argument Usage<br />
+When pause the contact charging, input the pause time in 0.1s.<br />
+When enable the contact charging in pause state, input 0.  </li>
+<li>Pause or resume the contact charging behavior<br />
+No response packet is generated by the firmware for this command.<br />
+If the robot is undocked from the contact charger, electrical sparks may occur due to residual charging current, potentially causing damage to both the robot and the charger.<br />
+Therefore, the ROS driver shall issue this command prior to detaching from the contact charger.  </li>
+</ul>
+<p>In contrast, explicit enabling of contact charging is typically unnecessary. After the pause time elapses, the firmware automatically initiates contact charging upon docking with the charger.  </p>
+<p>However, if undocking is canceled before the disable period has elapsed and contact charging should be resumed, the ROS driver may send this command with argument = 0 to re-enable contact charging.  </p>
+</li>
+</ul>
+<hr />
+<h3 id="sent-from-the-firmware">Sent From The Firmware<a class="headerlink" href="#sent-from-the-firmware" title="Permanent link">&para;</a></h3>
+<p>This packet must be sent from the firmware to the ROS driver through UDP port number <strong>49157</strong>.<br />
+Packets transmitted from the firmware include response to <code>COMS_COMMAND</code>packets received from the ROS driver and status reports about the firmware.</p>
+<h4 id="maincoms-packet-parameter">MainComs Packet Parameter<a class="headerlink" href="#maincoms-packet-parameter" title="Permanent link">&para;</a></h4>
+<p>The <code>COMS_PACKET</code> field is represented as a 32-bit integer value in the range 0x00000000 to 0x7FFFFFFF.</p>
+<table>
+<thead>
+<tr>
+<th>Value (Hex)</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00000000</td>
+<td>COMS_PACKET_NONE</td>
+<td>Do not use this param for packet.</td>
+</tr>
+<tr>
+<td>0x00000001</td>
+<td>COMS_PACKET_IVT</td>
+<td>Report packet for current, voltage and temperature.</td>
+</tr>
+<tr>
+<td>0x00000002</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x00000003</td>
+<td>COMS_PACKET_PING_ECHO</td>
+<td>Response for the <code>COMS_COMMAND_PING.</code></td>
+</tr>
+<tr>
+<td>0x00000004</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x00000005</td>
+<td>COMS_PACKET_GENERIC_STATUS</td>
+<td>Report packet for generic status of the firmware.</td>
+</tr>
+<tr>
+<td>0x00000006 - 0x00000008</td>
+<td>N/A</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x00000009</td>
+<td>COMS_PACKET_MAIN_VERSION</td>
+<td>Response for <code>COMS_COMMAND_GET_VERSION</code>.</td>
+</tr>
+<tr>
+<td>0x0000000A</td>
+<td>COMS_PACKET_LED_DRIVER_VERSION</td>
+<td>Response for <code>COMS_COMMAND_GET_LED_DRIVER_VERSION</code>.</td>
+</tr>
+<tr>
+<td>0x0000000B</td>
+<td>COMS_PACKET_MOTOR_DRIVER_VERSION</td>
+<td>Response for <code>COMS_COMMAND_GET_MOTOR_VERSION</code>.</td>
+</tr>
+<tr>
+<td>0x0000000C</td>
+<td>COMS_PACKET_MOTOR_COMS_ALERT</td>
+<td>Report packet for communication alert count between main and motor driver.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="field-layout_1">Field Layout<a class="headerlink" href="#field-layout_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Header</td>
+<td>Non-Timestamp Header</td>
+<td>4</td>
+<td>Refer to <a href="../packet-structure/#non-timestamp-header">Non-Timestamp Header</a></td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Parameter</td>
+<td>COMS_PACKET</td>
+<td>4</td>
+<td>Refer to <a href="#maincoms-packet-parameter">COMS_PACKET_PARAMETER</a></td>
+</tr>
+<tr>
+<td>8 - ..</td>
+<td>Payload</td>
+<td>Variable</td>
+<td>Variable</td>
+<td>Varies by <code>COMS_PACKET</code> </br> See the <a href="#payload-layout-usage">Payload Layout &amp; Usage</a> section for details.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, GenericStatus packet look like below:</p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Header</td>
+<td>Non-Timestamp Header</td>
+<td>4</td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Parameter</td>
+<td>COMS_PACKET</td>
+<td>4</td>
+</tr>
+<tr>
+<td>8 - 19</td>
+<td>GenericStatus Payload</td>
+<td>GenericStatus</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h4 id="payload-layout-usage">Payload Layout &amp; Usage<a class="headerlink" href="#payload-layout-usage" title="Permanent link">&para;</a></h4>
+<p>This section provides the payload structure and usage details corresponding to each <code>COMS_PACKET_PARAMETER</code>.</p>
+<ul>
+<li>COMS_PACKET_IVT</li>
+</ul>
+<p>This packet is report packet from the firmware.</p>
+<p>IVT type</p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Current</td>
+<td>32-bit float</td>
+<td>4</td>
+<td>Measured current [A] of the specified electric line</td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Voltage</td>
+<td>32-bit float</td>
+<td>4</td>
+<td>Measured voltage [V] of the specified electric line</td>
+</tr>
+<tr>
+<td>8 - 11</td>
+<td>Power</td>
+<td>32-bit float</td>
+<td>4</td>
+<td>Measured power [W] of the specified electric line</td>
+</tr>
+</tbody>
+</table>
+<p>IVT Packet Payload</p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 15</td>
+<td>Temperature[4]</td>
+<td>32-bit float array</td>
+<td>4 x 4</td>
+<td>Measured temperature [°C] of the specified parts. </br> Index: </br> 0 - Reserved, set to 0 </br>  1 - Reserved, set to 0 </br> 2 - CPU temperature of the Main Controller </br> 3 - Board temperature of the Main Controller</td>
+</tr>
+<tr>
+<td>16 - 111</td>
+<td>IVT[8]</td>
+<td>IVP array</td>
+<td>12 x 8</td>
+<td>Array of IVP structures, each representing current, voltage, and power measurements of an electric line.</br> Index:</br> 0 - 12V power line</br>1 - 5V power line</br>2 - 12V for PC power line</br>3 - Motor power line</br>4 - Charger line</br>5 - Battery line</br>6 - Main 24V power line</br>7 - Reserved, set to 0</td>
+</tr>
+</tbody>
+</table>
+<p>Usage  </p>
+<p>The firmware periodically transmits IVT (electrical and temperature) information to the ROS driver at an interval of 500 ms.</p>
+<ul>
+<li>COMS_PACKET_PING_ECHO</li>
+</ul>
+<p>This packet is the response for the <code>COMS_COMMAND_PING</code>.<br />
+PingEcho Packet Payload</p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Echo</td>
+<td>uint32</td>
+<td>4</td>
+<td>The <code>Echo</code> field stores the argument value received in the corresponding <code>COMS_COMMAND_PING</code> command.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage<br />
+This packet is generated by the firmware as a response to the <code>COMS_COMMAND_PING</code> command from the ROS driver. The firmware echoes the argument value of the received <code>COMS_COMMAND_PING</code> in the payload of this packet.</p>
+<ul>
+<li>COMS_PACKET_GENERIC_STATUS</li>
+</ul>
+<p>This packet is report packet from the firmware.  </p>
+<p>GenericStatus Packet Payload </p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>PWR button</td>
+<td>unsigned char</td>
+<td>1</td>
+<td>State of main power button</br> 0 - Released</br> 1 - Pressed</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Reserved1</td>
+<td>unsigned char</td>
+<td>1</td>
+<td>Reserved, set to 0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Reserved2</td>
+<td>unsigned char</td>
+<td>1</td>
+<td>Reserved, set to 0</td>
+</tr>
+<tr>
+<td>3 - 9</td>
+<td>Power switch state[7]</td>
+<td>unsigned char array</td>
+<td>7</td>
+<td>State if the power switch </br> 0 - Turned off </br> 1 - Turned on </br> Index: </br> 0 -12V power switch </br> 1- 12V PC power switch </br> 2 - 5V power switch </br> 3 - Lidar power switch </br> 4 - Motor power switch </br> 5 - 5V USB power switch </br> 6 - External 24V power switch</td>
+</tr>
+<tr>
+<td>10</td>
+<td>E-stop state switch</td>
+<td>unsigned char</td>
+<td>1</td>
+<td>State of the emergency stop switch </br> 0 - Released </br> 1 - Pressed</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Reserved3</td>
+<td>unsigned char</td>
+<td>1</td>
+<td>Reserved, set to 0</td>
+</tr>
+</tbody>
+</table>
+<p>Usage</p>
+<p>The firmware periodically transmits the <code>COMS_PACKET_GENERIC_STATUS</code> packet to the ROS driver at a fixed interval of 500 ms. <br />
+This packet provides the current status of the main power button, the emergency stop switch, and the state of all power switches.<br />
+Since the commands <code>COMS_COMMAND_ENABLE_POWER_SWITCH</code> and <code>COMS_COMMAND_DISABLE_POWER_SWITCH</code> do not generate response packets from the firmware, the <strong>Power switch state</strong> field in this packet serves as the indicator for verifying the actual status of each power switch.</p>
+<ul>
+<li>COMS_PACKET_XXX_VERSIONs:<br />
+COMS_PACKET_MAIN_VERSION<br />
+COMS_PACKET_LED_DRIVER_VERSION<br />
+COMS_PACKET_MOTOR_DRIVER_VERSION</li>
+</ul>
+<p>These packets are the response for the <code>COMS_COMMAND_GET_XXX_VERSIONs</code>.  </p>
+<p>Version Packet Payload</p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Hardware Revision</td>
+<td>uint32</td>
+<td>4</td>
+<td>Hardware revision number of the target controller</td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Major</td>
+<td>uint32</td>
+<td>4</td>
+<td>Major version number</td>
+</tr>
+<tr>
+<td>8 - 11</td>
+<td>Minor</td>
+<td>uint32</td>
+<td>4</td>
+<td>Minor version number</td>
+</tr>
+<tr>
+<td>12 - 15</td>
+<td>Revision</td>
+<td>uint32</td>
+<td>4</td>
+<td>Revision version number</td>
+</tr>
+<tr>
+<td>16 - 19</td>
+<td>Build</td>
+<td>uint32</td>
+<td>4</td>
+<td>Build version number</td>
+</tr>
+</tbody>
+</table>
+<p>Usage<br />
+This packet is transmitted by the firmware as a response to the <code>COMS_COMMAND_GET_XXX_VERSIONS</code> commands.<br />
+It provides both the hardware revision and firmware version information of the specified controller (Main Controller, LED Driver, or Motor Driver).</p>
+<ul>
+<li>COMS_PACKET_MOTOR_COMS_ALERT </li>
+</ul>
+<p>This packet is report packet from the firmware.    </p>
+<p>ComsAlert Packet Payload</p>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Alert Count</td>
+<td>uint32</td>
+<td>4</td>
+<td>This field indicates the number of communication alert events detected between the Main Controller and the Motor Driver.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage<br />
+The firmware periodically transmits the <code>COMS_PACKET_MOTOR_COMS_ALERT</code> packet to the ROS driver at a fixed interval of 500 ms.<br />
+The <code>Alert Countis</code> incremented whenever a communication timeout is detected between the Main Controller and Motor Driver.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2025 Bear Robotics, Inc. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "content.tooltips", "navigation.top", "navigation.tabs", "toc.follow"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
