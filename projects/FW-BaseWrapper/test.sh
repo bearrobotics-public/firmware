@@ -1,0 +1,1 @@
+docker exec example_node_container bash -c "/catkin_ws/src/example_node/test_motor.sh"

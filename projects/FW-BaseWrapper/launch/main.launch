@@ -1,0 +1,9 @@
+<launch>
+    <node name="example_node" pkg="example_node" type="example_node" output="screen">
+        <param name="pc_ip" value="10.2.98.10"/>
+        <param name="baseboard_ip" value="10.2.98.200"/>
+        <param name="motor_cmd_port_tx" value="49152"/>
+        <param name="motor_resp_port_rx" value="49153"/>
+        <param name="bms_port_rx" value="49167"/>
+    </node>
+</launch>
