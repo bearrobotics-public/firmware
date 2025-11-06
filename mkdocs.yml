@@ -1,4 +1,4 @@
-site_name: Bear Firmware BaseBoard API
+site_name: Bear Firmware API
 site_url: https://bearrobotics-public.github.io/firmware/
 copyright: Copyright 2025 Bear Robotics, Inc. All rights reserved.
 theme:
@@ -36,4 +36,5 @@ nav:
         - ChargerManager Packet: BaseBoard API/packet/chargermanager-packet.md
         - BMS Packet: BaseBoard API/packet/bms-packet.md
         - Log Packet: BaseBoard API/packet/log-packet.md
+      - Getting Started: BaseBoard API/guide/guide.md
   - Changelog: changelog.md
