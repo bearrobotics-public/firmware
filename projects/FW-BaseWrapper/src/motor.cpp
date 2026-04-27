@@ -6,9 +6,12 @@
 
 #include <ros/ros.h>
 #include <std_srvs/SetBool.h>
+#include <cmath>
 
 namespace bear {
 namespace example_node {
+
+#define RPM_THRESHOLD 0.0001f
 
 Motor::Motor(ros::NodeHandle &nh, std::string pc_ip, std::string baseboard_ip,
              int motor_cmd_port_tx, int motor_resp_port_rx)
@@ -95,10 +98,17 @@ void Motor::messageReceivedCallback(std::shared_ptr<void> packet, int size) {
 
     ::example_node::MotorReport report;
 
-    report.RPM_L = motor_packet->arg1.f32;
-    report.RPM_R = motor_packet->arg2.f32;
-    report.status_L = motor_packet->arg3.u32;
-    report.status_R = motor_packet->arg4.u32;
+    // Note: Firmware sends arg1=Right, arg2=Left (per motor-packet.md documentation)
+    report.RPM_R = ntohf(motor_packet->arg1.f32);
+    if (std::abs(report.RPM_R) < RPM_THRESHOLD) {
+      report.RPM_R = 0.0f;
+    }
+    report.RPM_L = ntohf(motor_packet->arg2.f32);
+    if (std::abs(report.RPM_L) < RPM_THRESHOLD) {
+      report.RPM_L = 0.0f;
+    }
+    report.status_R = ntohl(motor_packet->arg3.u32);
+    report.status_L = ntohl(motor_packet->arg4.u32);
     motor_report_pub_.publish(report);
     break;
   }
