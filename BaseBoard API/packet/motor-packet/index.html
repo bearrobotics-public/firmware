@@ -1,0 +1,1793 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://bearrobotics-public.github.io/firmware/BaseBoard%20API/packet/motor-packet/">
+      
+      
+        <link rel="prev" href="../packet-structure/">
+      
+      
+        <link rel="next" href="../maincoms-packet/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Motor Packet - Bear Firmware API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#motor-packet-bi-directional" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bear Firmware API" class="md-header__button md-logo" aria-label="Bear Firmware API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bear Firmware API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Motor Packet
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/communication/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bear Firmware API" class="md-nav__button md-logo" aria-label="Bear Firmware API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    Bear Firmware API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Firmware API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1_2" id="__nav_1_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_1_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Packet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packet-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packet Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motor Packet
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motor Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Data Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-packet-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Packet Specifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Packet Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-ros-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sent From The ROS driver
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The ROS driver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transmission-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transmission Rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sent From The Firmware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The Firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transmission-rate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transmission Rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maincoms-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maincoms Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../can-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAN Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../baseledcommand-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BaseLedCommand Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../imu-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IMU Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chargermanager-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChargerManager Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bms-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BMS Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../log-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bootup/bootup-sequence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootUp Sequence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ota/ota-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OTA Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Data Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-packet-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Packet Specifications
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Packet Specifications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-ros-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sent From The ROS driver
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The ROS driver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transmission-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transmission Rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sent-from-the-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sent From The Firmware
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sent From The Firmware">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transmission-rate_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transmission Rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#field-layout_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Field Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="motor-packet-bi-directional">Motor Packet (Bi-Directional)<a class="headerlink" href="#motor-packet-bi-directional" title="Permanent link">&para;</a></h1>
+<p>Motor-related communication uses two distinct packet formats depending on the communication direction.</p>
+<hr />
+<h2 id="common-data-types">Common Data Types<a class="headerlink" href="#common-data-types" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>MotorArg
+<div class="highlight"><pre><span></span><code><span class="k">typedef</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="n">f32_value</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">u32_value</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">MotorArg</span><span class="p">;</span>
+</code></pre></div>
+The <code>MotorArg</code>is a union type that allows a motor argument to be represented either as a 32-bit floating-point value(f32_value) or as a 32-bit unsigned integer(u32_value).</p>
+<ul>
+<li>f32_value: Used when the motor parameter requires a floating-point argument.</li>
+<li>u32_value: Used when the motor parameter requires an unsigned integer argument.</li>
+<li>Which member of the union is used depends on the associated MOTOR_PARAM described in the next section.</li>
+</ul>
+</li>
+<li>
+<p>MOTOR_PARAM<br />
+The <code>MOTOR_PARAM</code> field is represented as a 32-bit integer value in the range 0x00000000 to 0x7FFFFFFF.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Name</th>
+<th>Argument Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x00000000</td>
+<td>MOTOR_PARAM_NONE</td>
+<td>N/A</td>
+<td>Do not use this param for packet.</td>
+</tr>
+<tr>
+<td>0x00000001</td>
+<td>MOTOR_PARAM_TARGET_SPEED</td>
+<td>f32_value</td>
+<td>Target speed in [rad/s].</td>
+</tr>
+<tr>
+<td>0x00000002</td>
+<td>MOTOR_PARAM_TUNING_P_GAIN</td>
+<td>f32_value</td>
+<td>Value for the <strong>Proportional</strong> gain. </br> Use this parameter if additional tuning of the motor is required.</td>
+</tr>
+<tr>
+<td>0x00000003</td>
+<td>MOTOR_PARAM_TUNING_I_GAIN</td>
+<td>f32_value</td>
+<td>Value for the <strong>Integral</strong> gain. </br> Use this parameter if additional tuning of the motor is required.</td>
+</tr>
+<tr>
+<td>0x00000004</td>
+<td>MOTOR_PARAM_TUNING_D_GAIN</td>
+<td>f32_value</td>
+<td>Value for the <strong>Derivative</strong> gain.</br> Use this parameter if additional tuning of the motor is required.</td>
+</tr>
+<tr>
+<td>0x00000005</td>
+<td>MOTOR_PARAM_TUNING_FF_GAIN</td>
+<td>f32_value</td>
+<td>Value for the <strong>Feed-Forward</strong> gain.</br> Use this parameter if additional tuning of the motor is required.</td>
+</tr>
+<tr>
+<td>0x00000006</td>
+<td>MOTOR_PARAM_TUNING_DN_GAIN</td>
+<td>f32_value</td>
+<td>Value for the <strong>Derivative Noise</strong> filter.</br> <em>Use this parameter if additional tuning of the motor is required.</em></td>
+</tr>
+<tr>
+<td>0x00000007</td>
+<td>MOTOR_PARAM_CURRENT_SPEED</td>
+<td>f32_value</td>
+<td>Current speed in [rad/s]</td>
+</tr>
+<tr>
+<td>0x00000008</td>
+<td>MOTOR_PARAM_VERSION</td>
+<td>u32_value</td>
+<td>This parameter is used to query the firmware version of the motor driver.</td>
+</tr>
+<tr>
+<td>0x00000009</td>
+<td>MOTOR_PARAM_STATUS</td>
+<td>u32_value</td>
+<td>This parameter is used to query the current status of the motors.</td>
+</tr>
+<tr>
+<td>0x0000000A</td>
+<td>MOTOR_PARAM_FAULT_RESET</td>
+<td>u32_value</td>
+<td>This parameter is used to reset fault state of the motors.</td>
+</tr>
+<tr>
+<td>0x0000000B</td>
+<td>MOTOR_PARAM_ENABLE_MOTOR</td>
+<td>u32_value</td>
+<td>This parameter is used to enable or disable the motors. </br> Motors are locked when this parameter is enabled, and unlocked when it is disabled.</td>
+</tr>
+<tr>
+<td>0x0000000C</td>
+<td>MOTOR_PARAM_ALERT</td>
+<td>u32_value</td>
+<td>Currently not in use.</td>
+</tr>
+<tr>
+<td>0x0000000D</td>
+<td>MOTOR_PARAM_TUNING_OUT_GAIN</td>
+<td>f32_value</td>
+<td>Value for the <strong>Output</strong> gain. </br> <em>Use this parameter if additional tuning of the motor is required.</em></td>
+</tr>
+<tr>
+<td>0x0000000E</td>
+<td>MOTOR_PARAM_HARDWARE_REVISION</td>
+<td>u32_value</td>
+<td>This parameter is used to query the hw revision of the motor driver.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="detailed-packet-specifications">Detailed Packet Specifications<a class="headerlink" href="#detailed-packet-specifications" title="Permanent link">&para;</a></h2>
+<h3 id="sent-from-the-ros-driver">Sent From The ROS driver<a class="headerlink" href="#sent-from-the-ros-driver" title="Permanent link">&para;</a></h3>
+<p>This packet must be sent from the ROS driver to the firmware through <code>UDP</code> port number 
+<strong>49152</strong>.</p>
+<h4 id="transmission-rate">Transmission Rate<a class="headerlink" href="#transmission-rate" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Target Rate</strong>: 100Hz(10ms interval).</li>
+</ul>
+<h4 id="field-layout">Field Layout<a class="headerlink" href="#field-layout" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 3</td>
+<td>Header</td>
+<td>Non-Timestamp Header</td>
+<td>4</td>
+<td>Please refer to <a href="../packet-structure/#non-timestamp-header">Non-Timestamp Header</a></td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Parameter</td>
+<td>MOTOR_PARAM</td>
+<td>4</td>
+<td>Please refer to <a href="#common-data-types">MOTOR_PARAM</a></td>
+</tr>
+<tr>
+<td>8 - 11</td>
+<td>Argument1</td>
+<td>MotorArg</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>MOTOR_PARAM</code>. </br> Please refer to <a href="#usage">Usage</a> for more detail</td>
+</tr>
+<tr>
+<td>12 - 15</td>
+<td>Argument2</td>
+<td>MotorArg</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>MOTOR_PARAM</code>. Please refer to <a href="#usage">Usage</a> for more detail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h4>
+<p><em>Note: Packets transmitted from the ROS driver do not use the <code>MOTOR_PARAM_CURRENT_SPEED</code>.  This parameter is reserved for packets sent by the firmware to report the current speed.</em></p>
+<ul>
+<li>
+<p>MOTOR_PARAM_TUNING_XXX_GAINs: <br />
+   MOTOR_PARAM_TUNING_P_GAIN<br />
+   MOTOR_PARAM_TUNING_I_GAIN<br />
+   MOTOR_PARAM_TUNING_D_GAIN<br />
+   MOTOR_PARAM_TUNING_FF_GAIN<br />
+   MOTOR_PARAM_TUNING_DN_GAIN<br />
+   MOTOR_PARAM_TUNING_OUT_GAIN</p>
+<ul>
+<li>Purpose<br />
+  These parameters are used to tune the motor speed control loop.</li>
+<li>Argument Usage<br />
+  Argument1 (MotorArg.f32_value): Gain(or Filter) value for the specified parameter.
+  Argument2 (MotorArg.f32_value): Not used, set to 0.</li>
+<li>Firmware Response<br />
+  The firmware responds with the same parameter and value provided by ROS driver, reflecting the value applied to the system.<br />
+  Please refer to <a href="#sent-from-the-firmware">Sent From The Firmware</a> section for details. </li>
+</ul>
+</li>
+<li>
+<p>MOTOR_PARAM_TARGET_SPEED</p>
+<ul>
+<li>Purpose<br />
+ Sets the target motor speed in [rad/s].</li>
+<li>Argument Usage<br />
+ Argument1 (MotorArg.f32_value): Target speed for the left motor<br />
+ Argument2 (MotorArg.f32_value): Target speed for the right motor</li>
+<li>Firmware Response<br />
+ The firmware responds with the current speed value using<code>MOTOR_PARAM_CURRENT_SPEED</code>.<br />
+ Please refer to <a href="#sent-from-the-firmware">Sent From The Firmware</a> section for details.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_VERSION<ul>
+<li>Purpose<br />
+ Query the firmware version of the motor driver.  </li>
+<li>Argument Usage<br />
+ Argument1 (MotorArg.u32_value): Not used, set to 0.<br />
+ Argument2 (MotorArg.u32_value): Not used, set to 0.</li>
+<li>Firmware Response<br />
+ The firmware responds with the firmware version of the motor driver using the same parameter.<br />
+ Please refer to <a href="#sent-from-the-firmware">Sent From The Firmware</a> section for details.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_STATUS<ul>
+<li>Purpose<br />
+ Get the current status of the motor.  </li>
+<li>Argument Usage<br />
+ Argument1 (MotorArg.u32_value): Not used, set to 0.<br />
+ Argument2 (MotorArg.u32_value): Not used, set to 0.</li>
+<li>Firmware Response<br />
+ The firmware responds with the current motor status using the same parameter.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_FAULT_RESET<ul>
+<li>Purpose<br />
+ Clear the fault state of the motors.  </li>
+<li>Argument Usage<br />
+ Argument1 (MotorArg.u32_value): Not used, set to 0.<br />
+ Argument2 (MotorArg.u32_value): Not used, set to 0.</li>
+<li>Firmware Response<br />
+ The firmware does not generate a direct response packet for this parameter.<br />
+ Instead, the error code field within the motor status (<code>MOTOR_PARAM_STATUS</code>) is cleared.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_ENABLE_MOTOR<ul>
+<li>Purpose<br />
+ This parameter enables or disables motor control in the motor driver.<br />
+ When enabled, the motor driver accepts and executes the <code>MOTOR_PARAM_TARGET_SPEED</code> 
+ When disabled, the motor driver ignores <code>MOTOR_PARAM_TARGET_SPEED</code>.<br />
+ In this state, the user can physically push the robot and move it.</li>
+<li>Argument Usage<br />
+ Both <code>Argument1(MotorArg.u32_value)</code> and <code>Argument2(MotorArg.u32_value)</code> must be transmitted as either 1 (enable) or 0 (disable).</li>
+<li>Firmware Response<br />
+ The firmware does not generate a response packet for this parameter.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_HARDWARE_REVISION<ul>
+<li>Purpose<br />
+ Query the hardware revision of the motor driver</li>
+<li>Argument Usage<br />
+ Argument1 (MotorArg.u32_value): Not used, set to 0.<br />
+ Argument2 (MotorArg.u32_value): Not used, set to 0.</li>
+<li>Firmware Response<br />
+ The firmware responds with the hardware revision of the motor driver using the same parameter.<br />
+ Please refer to <a href="#sent-from-the-firmware">Sent From The Firmware</a> section for details.</li>
+</ul>
+</li>
+</ul>
+<h3 id="sent-from-the-firmware">Sent From The Firmware<a class="headerlink" href="#sent-from-the-firmware" title="Permanent link">&para;</a></h3>
+<p>This packet must be sent from the firmware through UDP port number <strong>49153</strong>.</p>
+<h4 id="transmission-rate_1">Transmission Rate<a class="headerlink" href="#transmission-rate_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>Normal Operation:</strong> 100 Hz (10ms interval). The firmware transmits this packet <strong>typically</strong> in response to a packet received from the ROS driver.</li>
+<li><strong>Idle/Fallback Mode:</strong> 40 Hz (25ms interval). If no command packet is received from the ROS driver within 25 ms, the firmware <strong>automatically polls</strong> and transmits a report packet to synchronize the speed and status of the motors.</li>
+</ul>
+<h4 id="field-layout_1">Field Layout<a class="headerlink" href="#field-layout_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Byte Offset</th>
+<th>Field Name</th>
+<th>Type</th>
+<th>Size (Bytes)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 - 11</td>
+<td>Header</td>
+<td>Timestamp Header</td>
+<td>12</td>
+<td>Please refer to <a href="../packet-structure/#timestamp-header">Timestamp Header</a></td>
+</tr>
+<tr>
+<td>4 - 7</td>
+<td>Parameter</td>
+<td>MOTOR_PARAM</td>
+<td>4</td>
+<td>Please refer to <a href="#common-data-types">MOTOR_PARAM</a></td>
+</tr>
+<tr>
+<td>8 - 11</td>
+<td>Argument1</td>
+<td>MotorArg</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>MOTOR_PARAM</code>. </br> Please refer to <a href="#usage_1">Usage</a> for more detail</td>
+</tr>
+<tr>
+<td>12 - 15</td>
+<td>Argument2</td>
+<td>MotorArg</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>MOTOR_PARAM</code>. </br> Please refer to <a href="#usage_1">Usage</a> for more detail</td>
+</tr>
+<tr>
+<td>16 - 19</td>
+<td>Argument3</td>
+<td>MotorArg</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>MOTOR_PARAM</code>. </br> Please refer to <a href="#usage_1">Usage</a> for more detail</td>
+</tr>
+<tr>
+<td>20 - 23</td>
+<td>Argument4</td>
+<td>MotorArg</td>
+<td>4</td>
+<td>The type of the argument varies depending on the associated <code>MOTOR_PARAM</code>. </br> Please refer to <a href="#usage_1">Usage</a> for more detail</td>
+</tr>
+</tbody>
+</table>
+<h4 id="usage_1">Usage<a class="headerlink" href="#usage_1" title="Permanent link">&para;</a></h4>
+<p><em>Note: Packets transmitted from the ROS driver do not use the <code>MOTOR_PARAM_CURRENT_SPEED</code>.   This parameter is reserved for packets sent by the ROS driver to set the target speed.</em></p>
+<ul>
+<li>MOTOR_PARAM_TUNING_XXX_GAINs:<br />
+   MOTOR_PARAM_TUNING_P_GAIN<br />
+   MOTOR_PARAM_TUNING_I_GAIN<br />
+   MOTOR_PARAM_TUNING_D_GAIN<br />
+   MOTOR_PARAM_TUNING_FF_GAIN<br />
+   MOTOR_PARAM_TUNING_DN_GAIN<br />
+   MOTOR_PARAM_TUNING_OUT_GAIN<ul>
+<li>Purpose<br />
+  These parameters are used to respond with the tuning values set by the ROS driver packets. </li>
+<li>Argument Usage<br />
+  Argument1 (MotorArg.f32_value): Configured gain(or filter) value for the right motor.
+  Argument2 (MotorArg.f32_value): Configured gain(or filter) value for the left motor.
+  Argument3 (MotorArg.u32_value): Not used, set to 0.<br />
+  Argument4 (MotorArg.u32_value): Not used, set to 0.</li>
+<li>Tuning Parameter Response Behavior<br />
+  Packets utilizing these parameters, when transmitted from the firmware, serve as response packets to the corresponding parameters sent by the ROS driver.<br />
+  In such cases, the ROS driver transmits the configuration value in <code>Argument1</code>, while <code>Argument2</code> is set to <code>0</code>. This value is applied symmetrically, configuring the same gain or filter setting for both the right and left motors.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_CURRENT_SPEED<ul>
+<li>Purpose<br />
+  This parameter is used by the firmware to respond with the current motor speed in [rad/s].</li>
+<li>Argument Usage<br />
+  Argument1 (MotorArg.f32_value): Current right motor speed in [rad/s].<br />
+  Argument2 (MotorArg.f32_value): Current left motor speed in [rad/s].<br />
+  Argument3 (MotorArg.u32_value): Current right motor status.<br />
+  Argument4 (MotorArg.u32_value): Current left motor status.  </li>
+<li>Motor Speed Response Behavior<br />
+  Generally, the firmware transmits this packet in response to the <code>MOTOR_PARAM_TARGET_SPEED</code> packet sent from the ROS driver.
+  However, if no target speed packet is received within 25 ms, the firmware transmits this packet as a report to synchronize the speed and status of the motors.<br />
+  Please refer to Motor Status Field Layout for more detailed information on the motor status.</li>
+</ul>
+</li>
+<li>MOTOR_PARAM_VERSION<ul>
+<li>Purpose<br />
+    Respond the firmware version information to the ROS driver.</li>
+<li>Argument Usage<br />
+  Argument1 (MotorArg.u32_value): Contains both <code>Major</code> and <code>Minor</code> version numbers.<br />
+  Argument2 (MotorArg.u32_value): Contains both <code>Revision</code> and <code>Build</code> numbers.</li>
+<li>Motor Driver Firmware Response Behavior<br />
+  This packet is generated by the firmware as a response to the <code>MOTOR_PARAM_VERSION</code> request received from the ROS driver.<br />
+  The motor firmware version is represented in the format {<strong>Major.Minor.Revision.Build</strong>}<br />
+  For example, if Argument1 = 0x0002 0001 / Argument2 = 0x0005 0x0032<br />
+  then the firmware version is 1.2.5.50</li>
+</ul>
+</li>
+<li>
+<p>MOTOR_PARAM_STATUS</p>
+<ul>
+<li>Purpose<br />
+  Reports the current status of both right and left motors, including motor error codes and the motor driver’s gate driver status.</li>
+<li>Argument Usage<br />
+  Argument1 (MotorArg.u32_value): Status field for the right motor.<br />
+  Argument2 (MotorArg.u32_value): Status field for the left motor.</li>
+<li>Status Field Layout<br />
+  Bits 31-22: Motor error<br />
+  Bits 21-0: Status for the gate driver  </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>Bit</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>31</td>
+<td>Emergency stop activated</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Communication timeout</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Encoder phase angle error</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Hall sensor phase angle error</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Current (iq) PID controller wind-up error</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Current (id) PID controller wind-up error</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Speed PID controller wind-up error</td>
+</tr>
+<tr>
+<td>24</td>
+<td>Gate driver error</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Invalid hall sensor reading</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Stall condition detected</td>
+</tr>
+<tr>
+<td>21</td>
+<td>General fault</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Over-current protection</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Gate driver fault</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Under voltage lockout</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Over-temperature shutdown</td>
+</tr>
+<tr>
+<td>16</td>
+<td>High-side phase A drain-source voltage fault</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Low-side phase A drain-source voltage fault</td>
+</tr>
+<tr>
+<td>14</td>
+<td>High-side phase B drain-source voltage fault</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Low-side phase B drain-source voltage fault</td>
+</tr>
+<tr>
+<td>12</td>
+<td>High-side phase C drain-source voltage fault</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Low-side phase C drain-source voltage fault</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Phase A over-current</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Phase B over-current</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Phase C over-current</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Over-temperature warning</td>
+</tr>
+<tr>
+<td>6</td>
+<td>CPU under voltage</td>
+</tr>
+<tr>
+<td>5</td>
+<td>High-side phase A gate-source fault</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Low-side phase A gate-source fault</td>
+</tr>
+<tr>
+<td>3</td>
+<td>High-side phase B gate-source fault</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Low-side phase B gate-source fault</td>
+</tr>
+<tr>
+<td>1</td>
+<td>High-side phase C gate-source fault</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Low-side phase C gate-source fault</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>MOTOR_PARAM_HARDWARE_REVISION</p>
+<ul>
+<li>Purpose<br />
+  Respond the hardware revision information of the motor driver to the ROS driver</li>
+<li>Argument Usage<br />
+  Argument1 (MotorArg.u32_value): Hardware revision of the motor driver.<br />
+  Argument2 (MotorArg.u32_value): Not used, set to 0.</li>
+<li>Motor Driver Hardware Revision Response Behavior<br />
+  This packet is generated by the firmware as a response to the <code>MOTOR_PARAM_HARDWARE_REVISION</code> request received from the ROS driver.<br />
+  The hardware revision information is encoded in the lower 4 bits of <code>Argument1</code>.</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2025 Bear Robotics, Inc. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.tooltips", "navigation.top", "navigation.tabs", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

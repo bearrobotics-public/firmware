@@ -1,0 +1,1581 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://bearrobotics-public.github.io/firmware/BaseBoard%20API/bootup/bootup-sequence/">
+      
+      
+        <link rel="prev" href="../../packet/log-packet/">
+      
+      
+        <link rel="next" href="../../ota/ota-flow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>BootUp Sequence - Bear Firmware API</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#baseboard-boot-up-network-watchdog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Bear Firmware API" class="md-header__button md-logo" aria-label="Bear Firmware API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bear Firmware API
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BootUp Sequence
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../overview/communication/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Bear Firmware API" class="md-nav__button md-logo" aria-label="Bear Firmware API" data-md-component="logo">
+      
+  <img src="../../../assets/bear_logo_white.png" alt="logo">
+
+    </a>
+    Bear Firmware API
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1_1" id="__nav_1_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Firmware API
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Firmware API
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../overview/communication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1_1_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_1_1_2" id="__nav_1_1_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packet
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_1_1_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1_1_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Packet
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/packet-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packet Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/motor-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motor Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/maincoms-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Maincoms Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/can-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CAN Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/baseledcommand-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BaseLedCommand Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/imu-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IMU Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/chargermanager-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ChargerManager Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/bms-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BMS Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packet/log-packet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log Packet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootUp Sequence
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BootUp Sequence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#boot-up-sequence-timings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boot-up Sequence &amp; Timings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boot-up Sequence &amp; Timings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialization Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-wait-times-and-availability-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Wait Times and Availability Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-functions-by-fw-status-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Functions by FW Status Section
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#udp-port-packet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UDP Port &amp; Packet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UDP Port &amp; Packet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pingecho-packet-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PING/ECHO Packet Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peer-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peer Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heartbeatping-network-watchdog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat(Ping) &amp; Network Watchdog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heartbeat(Ping) &amp; Network Watchdog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heartbeat-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-watchdog-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Watchdog Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graceful-shutdownshutdown-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graceful Shutdown(Shutdown Logic)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ota/ota-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OTA Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#boot-up-sequence-timings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boot-up Sequence &amp; Timings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Boot-up Sequence &amp; Timings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialization-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initialization Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-wait-times-and-availability-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Wait Times and Availability Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#available-functions-by-fw-status-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Functions by FW Status Section
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#udp-port-packet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UDP Port &amp; Packet
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UDP Port &amp; Packet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pingecho-packet-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PING/ECHO Packet Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peer-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peer Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#heartbeatping-network-watchdog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat(Ping) &amp; Network Watchdog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Heartbeat(Ping) &amp; Network Watchdog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#heartbeat-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heartbeat Mechanism
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-watchdog-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Watchdog Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery-scenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery Scenario
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graceful-shutdownshutdown-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Graceful Shutdown(Shutdown Logic)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="baseboard-boot-up-network-watchdog">BaseBoard Boot-up &amp; Network Watchdog<a class="headerlink" href="#baseboard-boot-up-network-watchdog" title="Permanent link">&para;</a></h1>
+<h2 id="boot-up-sequence-timings">Boot-up Sequence &amp; Timings<a class="headerlink" href="#boot-up-sequence-timings" title="Permanent link">&para;</a></h2>
+<p>Defines the hardware initialization of BaseBoard and the FreeRTOS thread startup sequence, specifying the golden time when the PC can start UDP communication.</p>
+<h3 id="initialization-flow">Initialization Flow<a class="headerlink" href="#initialization-flow" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Entry Point</strong>: <code>main()</code> → FreeRTOS scheduler starts → <code>app_main()</code> thread creation</li>
+<li><strong>System Init thread</strong>: Actual I/O and network stack(lwIP) initialization proceeds sequentially in a separate <code>system_init</code> thread</li>
+<li><strong>Boot Done</strong>: When all initialization succeeds, it switches to <code>bootDone = true</code> and periodic data publishing begins</li>
+</ol>
+<h3 id="key-wait-times-and-availability-points">Key Wait Times and Availability Points<a class="headerlink" href="#key-wait-times-and-availability-points" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Initialization wait times vary depending on the board revision.</li>
+<li><strong>PC communication start condition</strong>: Even if the UDP socket(<code>T_SOCKET</code>) is open, the firmware can only confirm the counterpart's IP address and send a response after receiving at least one packet from the PC.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Stage</th>
+<th style="text-align: left;">Main Tasks</th>
+<th style="text-align: left;">Accumulated Wait Time(min)</th>
+<th style="text-align: left;">Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>T0</strong></td>
+<td style="text-align: left;">Power On and Kernel Start</td>
+<td style="text-align: left;">0s</td>
+<td style="text-align: left;">Run LED fast blinking</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T1</strong></td>
+<td style="text-align: left;">HW Initialization and Stabilization</td>
+<td style="text-align: left;">Approximately 6~10s</td>
+<td style="text-align: left;">I2C, SPI, IMU, Audio Initialization</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T2</strong></td>
+<td style="text-align: left;">Ethernet PHY Reset/Stabilization</td>
+<td style="text-align: left;">Approximately 12~16s</td>
+<td style="text-align: left;">Includes fixed 6s wait</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T_SOCKET</strong></td>
+<td style="text-align: left;"><strong>Open UDP Receive Socket</strong></td>
+<td style="text-align: left;"><strong>Approximately 15~20s</strong></td>
+<td style="text-align: left;"><strong>PING reception possible from this point</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T_BOOT</strong></td>
+<td style="text-align: left;"><strong>Initialization Complete(Boot Done)</strong></td>
+<td style="text-align: left;"><strong>Approximately 20~30s</strong></td>
+<td style="text-align: left;"><strong>Start periodic Topic publishing</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="available-functions-by-fw-status-section">Available Functions by FW Status Section<a class="headerlink" href="#available-functions-by-fw-status-section" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Command processing is possible between <code>T_SOCKET</code> and <code>T_BOOT</code>, but periodic Publish is not yet available.</li>
+<li><strong>Recommended PC-side behavior</strong>: Immediately after power-on, PING may be dropped for up to 20 seconds. Implement a retry logic and keep trying until the first ECHO response is received.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Section</th>
+<th style="text-align: center;">UDP Reception</th>
+<th style="text-align: center;">Command Processing(PING/SHUTDOWN/ESTOP etc.)</th>
+<th style="text-align: center;">Periodic Publish(IVT/GenericStatus etc.)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>T0 ~ T_SOCKET</strong></td>
+<td style="text-align: center;">X (packet drop)</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>T_SOCKET ~ T_BOOT</strong></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">X</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>After T_BOOT</strong></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="udp-port-packet">UDP Port &amp; Packet<a class="headerlink" href="#udp-port-packet" title="Permanent link">&para;</a></h2>
+<h3 id="port-map">Port Map<a class="headerlink" href="#port-map" title="Permanent link">&para;</a></h3>
+<p>All ports are based on the offset from <code>PORT_BASE = 49152</code>. <strong>IN/OUT</strong> is based on the BaseBoard.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Direction</th>
+<th style="text-align: left;">Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>MAIN_COMS_IN_PORT</strong></td>
+<td style="text-align: left;">49158(<code>PORT_BASE + 6</code>)</td>
+<td style="text-align: left;">PC → FW</td>
+<td style="text-align: left;">Command Reception (<code>COMS_CMD_*</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>MAIN_COMS_OUT_PORT</strong></td>
+<td style="text-align: left;">49157(<code>PORT_BASE + 5</code>)</td>
+<td style="text-align: left;">FW → PC</td>
+<td style="text-align: left;">Status Packet / PING ECHO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pingecho-packet-structure">PING/ECHO Packet Structure<a class="headerlink" href="#pingecho-packet-structure" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Direction</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Size</th>
+<th style="text-align: left;">Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>PC → FW</strong></td>
+<td style="text-align: left;"><code>MAIN_COMS_PACKET</code></td>
+<td style="text-align: left;">12 B</td>
+<td style="text-align: left;">NetPacketHeader(4) + <code>COMS_CMD</code> cmd(4) + <code>COMS_ARG</code> arg(4)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FW → PC</strong></td>
+<td style="text-align: left;"><code>PING_ECHO_PACKET</code></td>
+<td style="text-align: left;">12 B</td>
+<td style="text-align: left;"><code>MAIN_COMS_PACKET_HEADER</code>(8) + <code>uint32_t</code> seq_num(4)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>PC → FW</strong></p>
+<ul>
+<li><code>cmd</code> = <code>COMS_CMD_PING</code></li>
+<li><code>arg</code> = sequence number.</li>
+</ul>
+</li>
+<li>
+<p><strong>FW → PC</strong></p>
+<ul>
+<li><code>type</code> = <code>MC_PACKET_TYPE_PING_ECHO</code></li>
+<li><code>seq_num</code> reflects the <code>arg</code> exactly as received.</li>
+</ul>
+</li>
+</ul>
+<h3 id="peer-discovery">Peer Discovery<a class="headerlink" href="#peer-discovery" title="Permanent link">&para;</a></h3>
+<p>The FW has no fixed target IP and undergoes the following dynamic learning process:</p>
+<ol>
+<li><strong>First reception</strong>: Immediately upon receiving the first packet sent by the PC(e.g., PING), it learns the counterpart's IP.</li>
+<li><strong>Target confirmation</strong>: Subsequently, the destination address of all Out-Stream(IMU, BMS, etc.) is uniformly updated to that IP.</li>
+<li><strong>WOL(Wake On Lan) preparation</strong>: Stores the counterpart's MAC address through ARP(Address Resolution Protocol) query.</li>
+</ol>
+<hr />
+<h2 id="heartbeatping-network-watchdog">Heartbeat(Ping) &amp; Network Watchdog<a class="headerlink" href="#heartbeatping-network-watchdog" title="Permanent link">&para;</a></h2>
+<p>A mechanism that mutually monitors connection status(heartbeat) and performs self-recovery (watchdog) in case of failure.</p>
+<h3 id="heartbeat-mechanism">Heartbeat Mechanism<a class="headerlink" href="#heartbeat-mechanism" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>PC → FW</strong>: Periodically send <code>COMS_CMD_PING</code> packets(recommended interval: 1Hz, maximum less than 2.5s).</li>
+<li><strong>FW → PC</strong>: Immediately respond with <code>MC_PACKET_TYPE_PING_ECHO</code>. At the same time, call internal <code>NetworkWatchdog::Feed()</code> to reset the watchdog timer.</li>
+</ul>
+<h3 id="network-watchdog-configuration">Network Watchdog Configuration<a class="headerlink" href="#network-watchdog-configuration" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Constant</th>
+<th style="text-align: left;">Value</th>
+<th style="text-align: left;">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>kProbeIntervalMs</code></td>
+<td style="text-align: left;">2500 ms</td>
+<td style="text-align: left;">Time of PING no response detection = ICMP probe start reference</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>kRetryIntervalMs</code></td>
+<td style="text-align: left;">1000 ms</td>
+<td style="text-align: left;">Retry interval on ICMP failure</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>kMaxProbeFails</code></td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Allowed number of consecutive ICMP failures(initial probe + 2 retries = total 3 times)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>kMaxRecoveries</code></td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Maximum number of PHY resets</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>kPhyResetLeadTimeMs</code></td>
+<td style="text-align: left;">6000 ms</td>
+<td style="text-align: left;">Stabilization wait after PHY reset</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>PING_RCV_TIMEO</code></td>
+<td style="text-align: left;">500 ms</td>
+<td style="text-align: left;">lwIP ping receive timeout</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recovery-scenario">Recovery Scenario<a class="headerlink" href="#recovery-scenario" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Situation</th>
+<th style="text-align: left;">Action and Judgment</th>
+<th style="text-align: left;">Measure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Normal PING</strong></td>
+<td style="text-align: left;">Received within 2.5 seconds</td>
+<td style="text-align: left;">Watchdog Feed → Timer Reset</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>No PING Response</strong></td>
+<td style="text-align: left;">No response exceeding 2.5 seconds</td>
+<td style="text-align: left;">FW directly sends ICMP Echo(Ping) to PC</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ICMP Success</strong></td>
+<td style="text-align: left;">PC response confirmed</td>
+<td style="text-align: left;">Judged as connection maintained(Log: "Probe success") → Timer restart</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ICMP Failure</strong></td>
+<td style="text-align: left;">Retry every 1 second(initial + 2 retries = total 3 attempts)</td>
+<td style="text-align: left;">If all fail, enter hardware recovery stage</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Network Recovery</strong></td>
+<td style="text-align: left;">After 3 consecutive failures, Ethernet PHY hardware reset then wait 6 seconds → retry</td>
+<td style="text-align: left;">Up to 5 attempts for reset</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Recovery Abandonment</strong></td>
+<td style="text-align: left;">PHY reset failed 5 times</td>
+<td style="text-align: left;">Probe permanently stopped(<code>PauseUntilFeed</code>). Automatically restarts with <code>Feed()</code> when PC sends PING again</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="graceful-shutdownshutdown-logic">Graceful Shutdown(Shutdown Logic)<a class="headerlink" href="#graceful-shutdownshutdown-logic" title="Permanent link">&para;</a></h2>
+<p>When the user presses the power button to attempt shutdown, the FW does not just cut the power but checks the PC's shutdown status.</p>
+<ol>
+<li>If <code>main_coms.IsConnected()</code> is true(meaning there has been communication with the PC at least once before), replace the Watchdog handler with <code>GracefulShutdownHandler</code>.</li>
+<li>Send ICMP probes at 1-second intervals.</li>
+<li>If there is no response for 10 consecutive times(10 seconds), consider the PC fully shut down and cut the baseboard power.</li>
+<li>If the PC responds before that or sends <code>COMS_CMD_SHUTDOWN</code>, immediately proceed with the shutdown routine.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2025 Bear Robotics, Inc. All rights reserved.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "content.tooltips", "navigation.top", "navigation.tabs", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
