@@ -34,7 +34,7 @@ sudo pip3 install pyyaml
 ```powershell
 $ python3 update_firmware.py --debug binaries/
 [2026-03-22 21:05:43,486][root][DEBUG] Sent command 9 to baseboard
-[2026-03-22 21:05:43,486][root][DEBUG] Aethon folder found for Aethon robot type.
+[2026-03-22 21:05:43,486][root][DEBUG] `XXX` folder found for `XXX` robot type.
 [2026-03-22 21:05:43,486][root][INFO] Targets are ['base', 'motor']
 [2026-03-22 21:05:44,728][root][WARNING] Cannot find FirmwareUpdate in robotics_analytics_pb
 [2026-03-22 21:05:44,728][root][INFO] OTA started.
@@ -45,7 +45,7 @@ $ python3 update_firmware.py --debug binaries/
 [2026-03-22 21:05:46,737][root][INFO] Flashing base (Base (3.8.0.0) >>>> Base (3.8.2.2))
 [2026-03-22 21:05:46,738][utils.updater][DEBUG] Updater starting with requested options: {'blksize': 1280}
 
-[2026-03-22 21:05:46,752][utils.updater][DEBUG] sending file binaries/Aethon/BaseBoard.bin
+[2026-03-22 21:05:46,752][utils.updater][DEBUG] sending file binaries/`XXX`/BaseBoard.bin
 
 [2026-03-22 21:05:46,752][utils.updater][DEBUG] file length: 444416
 
@@ -56,7 +56,7 @@ $ python3 update_firmware.py --debug binaries/
 [2026-03-22 21:05:50,190][utils.updater][DEBUG] Starting TFTP upload attempt
 [2026-03-22 21:05:50,190][utils.updater][DEBUG] Checking upload status
 [2026-03-22 21:05:50,190][utils.updater][DEBUG] Tftpy client connected.
-[2026-03-22 21:05:50,190][utils.updater][DEBUG] Starting upload of binaries/Aethon/BaseBoard.bin
+[2026-03-22 21:05:50,190][utils.updater][DEBUG] Starting upload of binaries/`XXX`/BaseBoard.bin
 [2026-03-22 21:05:50,190][tftpy.TftpContext][DEBUG] Sending tftp upload request to 10.2.98.200
 [2026-03-22 21:05:50,190][tftpy.TftpContext][DEBUG]     filename -> BaseBoard.bin
 [2026-03-22 21:05:50,190][tftpy.TftpContext][DEBUG]     options -> {'blksize': 1280}
@@ -1133,7 +1133,7 @@ $ python3 update_firmware.py --debug binaries/
 [2026-03-22 21:07:33,023][root][INFO] Waiting 20 seconds for motor board to initialize
 [2026-03-22 21:07:53,043][utils.updater][DEBUG] Updater starting with requested options: {'blksize': 1280}
 
-[2026-03-22 21:07:53,044][utils.updater][DEBUG] sending file binaries/Aethon/BearDriver.txt
+[2026-03-22 21:07:53,044][utils.updater][DEBUG] sending file binaries/`XXX`/BearDriver.txt
 
 [2026-03-22 21:07:53,044][utils.updater][DEBUG] file length: 245686
 
@@ -1144,7 +1144,7 @@ $ python3 update_firmware.py --debug binaries/
 [2026-03-22 21:07:55,038][utils.updater][DEBUG] Starting TFTP upload attempt
 [2026-03-22 21:07:55,038][utils.updater][DEBUG] Checking upload status
 [2026-03-22 21:07:55,038][utils.updater][DEBUG] Tftpy client connected.
-[2026-03-22 21:07:55,039][utils.updater][DEBUG] Starting upload of binaries/Aethon/BearDriver.txt
+[2026-03-22 21:07:55,039][utils.updater][DEBUG] Starting upload of binaries/`XXX`/BearDriver.txt
 [2026-03-22 21:07:55,039][tftpy.TftpContext][DEBUG] Sending tftp upload request to 10.2.98.200
 [2026-03-22 21:07:55,039][tftpy.TftpContext][DEBUG]     filename -> BearDriver.txt
 [2026-03-22 21:07:55,039][tftpy.TftpContext][DEBUG]     options -> {'blksize': 1280}
