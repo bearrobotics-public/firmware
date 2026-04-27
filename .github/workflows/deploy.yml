@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - main
+      - devel
 permissions:
   contents: write
 jobs:
@@ -28,6 +28,6 @@ jobs:
       - run: mkdocs gh-deploy --clean --force
       - run: |
           git checkout gh-pages
-          git checkout main -- CNAME
+          git checkout devel -- CNAME
           git commit -m "[Deploy CNAME]"
           git push -f origin gh-pages
