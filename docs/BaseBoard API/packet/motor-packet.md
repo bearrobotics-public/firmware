@@ -47,6 +47,9 @@ The `MOTOR_PARAM` field is represented as a 32-bit integer value in the range 0x
 This packet must be sent from the ROS driver to the firmware through `UDP` port number 
 **49152**.
 
+#### Transmission Rate
+- **Target Rate**: 100Hz(10ms interval).
+
 #### Field Layout
 | Byte Offset | Field Name | Type | Size (Bytes) | Description |
 |--------------|-------------|------|---------------|--------------|
@@ -131,6 +134,10 @@ This packet must be sent from the ROS driver to the firmware through `UDP` port 
 
 ### Sent From The Firmware
 This packet must be sent from the firmware through UDP port number **49153**.
+
+#### Transmission Rate
+- **Normal Operation:** 100 Hz (10ms interval). The firmware transmits this packet **typically** in response to a packet received from the ROS driver.
+- **Idle/Fallback Mode:** 40 Hz (25ms interval). If no command packet is received from the ROS driver within 25 ms, the firmware **automatically polls** and transmits a report packet to synchronize the speed and status of the motors.
 
 #### Field Layout
 | Byte Offset | Field Name | Type | Size (Bytes) | Description |

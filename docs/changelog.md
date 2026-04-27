@@ -14,3 +14,10 @@
 - BMS Packet
 - Log Packet
 
+## v0.1 -  27, Apr 2026
+- Explanations regarding the booting process and OTA method have been added.
+
+### Newly Added Endpoints
+- Bootup Sequence
+- OTA Flow
+- Minimum period of motor communication (PC ↔ BaseBoard)

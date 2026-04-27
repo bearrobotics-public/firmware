@@ -36,4 +36,6 @@ nav:
         - ChargerManager Packet: BaseBoard API/packet/chargermanager-packet.md
         - BMS Packet: BaseBoard API/packet/bms-packet.md
         - Log Packet: BaseBoard API/packet/log-packet.md
+      - BootUp Sequence: BaseBoard API/bootup/bootup-sequence.md
+      - OTA Flow: BaseBoard API/ota/ota-flow.md
   - Changelog: changelog.md
