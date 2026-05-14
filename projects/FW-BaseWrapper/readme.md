@@ -35,9 +35,13 @@ This will `docker exec` into the running container and call `/catkin_ws/src/exam
 - Stops and disables motors
 
 ## Notes
-- Host networking requires the host interface at `10.2.98.200` to be reachable for your hardware/network.
-- If you rebuild often, Docker layer cache will speed subsequent `./start.sh` runs.
-- For troubleshooting, you can get a shell in the running container:
-```bash
-docker exec -it example_node_container bash
-```
+- **Host networking:** Ensure the host interface at `10.2.98.200` is up and reachable for your device/network.
+- **Docker build performance:** Rebuilding frequently benefits from Docker layer caching, making `./start.sh` runs faster.
+- **Accessing the container shell:** For troubleshooting or manual inspection, open a bash shell in the running container:
+  ```bash
+  docker exec -it example_node_container bash
+  ```
+- **Windows users:** If you are building on a Windows file system, set executable permissions (`chmod +x`) on the following scripts before building the Docker image:
+  - `start.sh`
+  - `test_motor.sh`
+  - `test.sh`

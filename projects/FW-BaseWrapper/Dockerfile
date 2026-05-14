@@ -24,6 +24,8 @@ RUN mkdir -p ${ROS_WS}/src
 WORKDIR ${ROS_WS}
 COPY . ${ROS_WS}/src/example_node
 
+RUN chmod +x ${ROS_WS}/src/example_node/test_motor.sh
+
 # Install package dependencies (from package.xml) and build
 RUN source /opt/ros/noetic/setup.sh \
   && rosdep install --from-paths src --ignore-src -r -y \
